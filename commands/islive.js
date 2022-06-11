@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fetch = require('node-fetch');
 
@@ -21,15 +21,20 @@ fetch('https://open-api.trovo.live/openplatform/channels/id', {
     body: '{"username":"tiesel1"}'
 }).then(response=>response.json())
 .then(data=> {
-if (data.is_live==true){
-const embed = new MessageEmbed()
-.setAuthor({name: 'Tiesel is now live on Trovo!', url:'https://trovo.live/tiesel1'})
-.setTitle((data.live_title).toString())
-.setImage('https://wallpaperaccess.com/full/6999295.jpg')
-interaction.reply({embeds: [embed]});
-}else{
-    interaction.reply("Stream is not live(yet), check back later.");
-}
+
+    const file = new MessageAttachment('./assets/soon.png');
+
+    if (data.is_live==true){
+        const embed = new MessageEmbed()
+        .setAuthor({name: 'Tiesel is now live on Trovo!', url:'https://trovo.live/tiesel1'})
+        .setTitle((data.live_title).toString())
+        .setURL('https://trovo.live/tiesel')
+        .setImage('attachment://soon.png')
+        interaction.reply({embeds: [embed], files:[file]});
+        }else{
+            interaction.reply("Stream is not live(yet), check back later.");
+        }
 })
 .catch(err=>console.log(err));
-},};
+    },
+};
