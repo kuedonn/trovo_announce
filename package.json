@@ -1,0 +1,21 @@
+{
+  "name": "tslstreambot",
+  "version": "1.0.0",
+  "description": "discord bot that announces when stream is live",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stream"
+  ],
+  "author": "kuedon#4714",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "discord-api-types": "^0.33.5",
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1"
+  }
+}
