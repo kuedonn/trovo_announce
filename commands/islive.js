@@ -31,6 +31,7 @@ async execute(interaction){
         .setAuthor({name: 'Tiesel is now live on Trovo!', url:`https://trovo.live/${input}`})
         .setTitle((data.live_title).toString())
         .setURL(`https://trovo.live/${input}`)
+        .addField('Category',data.category_name)
         .setImage('attachment://soon.png')
         interaction.reply({embeds: [embed], files:[file]});
         }else{
