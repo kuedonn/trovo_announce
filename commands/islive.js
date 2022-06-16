@@ -39,6 +39,7 @@ async execute(interaction){
         .addField('Category',data.category_name,true)
         .addField('Viewers',(data.current_viewers).toString(),true)
         .setImage(data.thumbnail)
+        .setFooter({text:'Author: Kuedon#4714'})
         interaction.reply({embeds: [embed]});
         }else{
             interaction.reply("Stream is not live(yet), check back later.");
