@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const axios = require('axios');
 
@@ -30,7 +30,6 @@ async execute(interaction){
   await axios(config)
 .then(response=> {
     const data = response.data;
-    const file = new MessageAttachment('./assets/soon.png');
 
     if (data.is_live==true){
         const embed = new MessageEmbed()
@@ -39,8 +38,8 @@ async execute(interaction){
         .setURL(`https://trovo.live/${input}`)
         .addField('Category',data.category_name,true)
         .addField('Viewers',(data.current_viewers).toString(),true)
-        .setImage('attachment://soon.png')
-        interaction.reply({embeds: [embed], files:[file]});
+        .setImage(data.thumbnail)
+        interaction.reply({embeds: [embed]});
         }else{
             interaction.reply("Stream is not live(yet), check back later.");
         }
