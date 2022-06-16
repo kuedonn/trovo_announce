@@ -1,34 +1,40 @@
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 const dotenv  = require('dotenv');
 dotenv.config();
 
-const input = "tiesel1";
 
 module.exports = {
     data:new SlashCommandBuilder()
     .setName('live')
-    .setDescription('Trigger bot message on live'),
+    .setDescription('Trigger bot message on live')
+    .addStringOption(option =>
+        option.setName('input')
+        .setDescription('user input')
+        .setRequired(true)
+    ),
 async execute(interaction){
-   fetch('https://open-api.trovo.live/openplatform/channels/id', {
-    method: 'POST',
-    headers: {
+    const input = interaction.options.getString('input');
+    const config = {
+        method: 'POST',
+        url: 'https://open-api.trovo.live/openplatform/channels/id',
+        headers: {
         'Accept': 'application/json',
         'Client-ID': process.env.CLIENT_ID,
         'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: `{\"username\":\"${input}\"}`
-}).then(response=>response.json())
-.then(data=> {
-
-
+        },
+        data:`{\"username\":\"${input}\"}`
+    };
+  await axios(config)
+.then(response=> {
+    const data = response.data;
     const file = new MessageAttachment('./assets/soon.png');
 
     if (data.is_live==true){
         const embed = new MessageEmbed()
-        .setAuthor({name: 'Tiesel is now live on Trovo!', url:`https://trovo.live/${input}`})
+        .setAuthor({name: `${input} is now live on Trovo!`, url:`https://trovo.live/${input}`})
         .setTitle((data.live_title).toString())
         .setURL(`https://trovo.live/${input}`)
         .addField('Category',data.category_name,true)
