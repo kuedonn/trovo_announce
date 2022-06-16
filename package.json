@@ -1,5 +1,5 @@
 {
-  "name": "tslstreambot",
+  "name": "trovo_announce",
   "version": "1.0.0",
   "description": "discord bot that announces when stream is live",
   "main": "index.js",
