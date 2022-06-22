@@ -16,7 +16,8 @@ module.exports = {
         .setRequired(true)
     ),
 async execute(interaction){
-    const input = interaction.options.getString('input');   // get user input
+    const inputt = interaction.options.getString('input');
+    const input = inputt.toUpperCase();   // get user input
     const config = {                                        //get the config with the options for the api request
         method: 'POST',
         url: 'https://open-api.trovo.live/openplatform/channels/id',
